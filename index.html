@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>الذي كان هنا قبلي - نسخة تفاعلية نهائية</title>
+<style>
+  body {
+    background-color: black;
+    color: #eee;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.8;
+    text-align: right;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+  .fade { opacity: 0; transition: opacity 2s ease-in-out; }
+  .visible { opacity: 1; }
+  .shake { display: inline-block; animation: shake 0.3s infinite; }
+  .slide { display: inline-block; animation: slide 1s infinite alternate; }
+  @keyframes shake {
+    0% { transform: translateX(0px); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0px); }
+  }
+  @keyframes slide {
+    0% { transform: translateX(0px); }
+    100% { transform: translateX(20px); }
+  }
+  .highlight { color: red; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div id="text"></div>
+
+<audio id="sound1" src="https://www.soundjay.com/horror/door-creak-01.mp3"></audio>
+<audio id="sound2" src="https://www.soundjay.com/horror/footsteps-1.mp3"></audio>
+<audio id="sound3" src="https://www.soundjay.com/horror/ghost-laugh-1.mp3"></audio>
+
+<script>
+const lines = [
+  {text: "انت… موجود دلوقتي.", sound: null},
+  {text: "مش بتقرا بس. كل خطوة هنا… كل باب… ممكن يشوفك.", sound: 'sound2'},
+  {text: "<span class='shake'>أنا… ما صحيتش.</span>", sound: null},
+  {text: "اللي حصل ده مش صحوة. كأن حد مسك دماغي وقال: 'افتح عينك دلوقتي… حتى لو مش مستعد.'", sound: null},
+  {text: "الضوء حوالينا؟ مش نور… ومش ضلمة… مجرد فكرة عن ضوء…", sound: null},
+  {text: "الحيطان فاكرة نفسها مضويّة… بس نسيت.", sound: null},
+  {text: "سمعت صوت نفس… مش قريب… ومش بعيد… حاسس بيه حوالينا… حواليك… انت سامع؟", sound: 'sound2'},
+  {text: "قلت لنفسي: أكيد ده نفسي… بس صدري ما بيتحركش باللحن ده.", sound: null},
+  {text: "بصّيت على الساعة… مش محتاج تقرّب… انت عارف الرقم قبل ما تشوفه: <span class='highlight'>03:17</span>", sound: null},
+  {text: "تلاتة وسبعتاشر… دايمًا.", sound: null},
+  {text: "حاولت أقوم… لقيت إني قاعد من زمان.", sound: null},
+  {text: "السرير ساكت… كأنه معمول عشان ما يتحركش.", sound: null},
+  {text: "حطّيت إيدي على الحيطة عشان أتوازن… حسيت بيها دافية… بتنبض.", sound: null},
+  {text: "سحبت إيدي بسرعة… بس الإحساس فضّل.", sound: null},
+  {text: "<span class='highlight'>الحيطان هنا مش متبنية… دي متربية.</span>", sound: null},
+  {text: "— اتأخرت.", sound: null},
+  {text: "سمعته؟ الصوت جه من ناحية الباب… أو من فكرة باب… مش قادر تتحرك؟ ولا انت بس حاسس كده؟", sound: 'sound2'},
+  {text: "كان راجل واقف هناك. عيناه واضحتين زيادة… كأننا شخص واحد.", sound: null},
+  {text: "— أنا فين؟ — السؤال مش في مكانه.", sound: null},
+  {text: "باب شمالنا اتفتح لوحده… <span class='slide'>طلعت ست… عينها حمرا… ومعطفها تقيل… أول ما شافتني… شهقت.</span>", sound: 'sound1'},
+  {text: "— لازم تمشي، لما الساعة توصل <span class='highlight'>03:18</span>… اللي هنا هيشوفك.", sound: null},
+  {text: "الباب اتقفل. بصّيت على الساعة… العقرب ارتعش… وبعدين اتحرك.", sound: null},
+  {text: "في اللحظة دي… النور اللي ما كانش نور… طفى. وحسّيت بأنفاس كتير… أكتر من اللي الممر يستحمله.", sound: 'sound3'},
+  {text: "<span class='highlight'>انت دلوقتي جزء من المكان ده. ومفيش رجوع.</span>", sound: null},
+  {text: "<span class='slide'>انت سامع؟ خطوات… همسات… ضحك الطفل حوالينا… انت موجود دلوقتي معانا…</span>", sound: 'sound3'}
+];
+
+let i = 0;
+const container = document.getElementById('text');
+
+function showLine() {
+  if (i < lines.length) {
+    const p = document.createElement('p');
+    p.classList.add('fade');
+    p.innerHTML = lines[i].text;
+    container.appendChild(p);
+    setTimeout(() => p.classList.add('visible'), 100);
+
+    if (lines[i].sound) {
+      const audio = document.getElementById(lines[i].sound);
+      audio.currentTime = 0;
+      audio.play();
+    }
+
+    i++;
+    setTimeout(showLine, 3500);
+  }
+}
+
+showLine();
+</script>
+</body>
+</html>
